@@ -1,0 +1,336 @@
+openapi: 3.0.0
+info:
+  version: '0.0.1'
+  title: Favourite API
+  description: Favourite API. Find out more [here](https://github.com/timmymorr/favourite-svc).
+  contact:
+    email: timmymorr@gmail.com
+servers:
+  - description: This server
+    url: https://localhost/favourite
+tags:
+  - name: favourite
+    description: Operations about a single favourite
+  - name: favourites
+    description: Operations about favourites collection
+paths:
+  /api/v1/favourite/{user_id}/{favourite_id}:
+    get:
+      tags:
+        - favourite
+      operationId: get-favourite
+      description: Get existing favourite in the DB.
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+          description: "Bearer: Token"
+        - in: path
+          name: user_id
+          schema:
+            type: integer
+          required: true
+          description: Unique user ID of the favourite to get
+        - in: path
+          name: favourite_id
+          schema:
+            type: integer
+          required: true
+          description: Unique ID of the favourite to get
+      responses:
+        '200':
+          description: 'Get Favourite'
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {
+                  popularity: 501.294,
+                  vote_count: 3037,
+                  video: false,
+                  poster_path: "/xJUILftRf6TJxloOgrilOTJfeOn.jpg",
+                  id: 419704,
+                  adult: false,
+                  backdrop_path: "/5BwqwxMEjeFtdknRV792Svo0K1v.jpg",
+                  original_language: "en",
+                  original_title: "Ad Astra",
+                  genre_ids: [18, 878],
+                  title: "Ad Astra",
+                  vote_average: 6,
+                  overview: "The near future, a time when both hope and hardships drive humanity to look to the stars and beyond. While a mysterious phenomenon menaces to destroy life on planet Earth, astronaut Roy McBride undertakes a mission across the immensity of space and its many perils to uncover the truth about a lost expedition that decades before boldly faced emptiness and silence in search of the unknown.",
+                  release_date: "2019-09-17"}
+        '401':
+          description: "401 Error"
+          content: 
+            application/json:
+              schema:
+                type: object
+                example: {message: "Authorization failure", code: 401}
+        '404':
+          description: "404 Error"
+          content: 
+            application/json:
+              schema:
+                type: object
+                example: {message: "Unable to find favourite", code: 404}
+        '500':
+          description: "500 Error"
+          content: 
+            application/json:
+              schema:
+                type: object
+                example: {message: "Internal Server Error", code: 500}
+    patch:
+      tags:
+        - favourite
+      operationId: update-favourite
+      summary: Update favourite
+      description: Update existing favourite in the DB.
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+          description: "Bearer: Token"
+        - in: path
+          name: user_id
+          schema:
+            type: integer
+          required: true
+          description: Unique user ID of the favourite to get
+        - in: path
+          name: favourite_id
+          schema:
+            type: integer
+          required: true
+          description: Unique ID of the favourite to get
+      requestBody:
+        description: Movie data as JSON object  
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example: {
+                popularity: 501.294,
+                vote_count: 3037,
+                video: false,
+                poster_path: "/xJUILftRf6TJxloOgrilOTJfeOn.jpg",
+                id: 419704,
+                adult: false,
+                backdrop_path: "/5BwqwxMEjeFtdknRV792Svo0K1v.jpg",
+                original_language: "en",
+                original_title: "Ad Astra",
+                genre_ids: [18, 878],
+                title: "Ad Astra",
+                vote_average: 6,
+                overview: "The near future, a time when both hope and hardships drive humanity to look to the stars and beyond. While a mysterious phenomenon menaces to destroy life on planet Earth, astronaut Roy McBride undertakes a mission across the immensity of space and its many perils to uncover the truth about a lost expedition that decades before boldly faced emptiness and silence in search of the unknown.",
+                release_date: "2019-09-17"}
+      responses:
+        '200':
+          description: 'Updated favourite'
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {
+                  popularity: 501.294,
+                  vote_count: 3037,
+                  video: false,
+                  poster_path: "/xJUILftRf6TJxloOgrilOTJfeOn.jpg",
+                  id: 419704,
+                  adult: false,
+                  backdrop_path: "/5BwqwxMEjeFtdknRV792Svo0K1v.jpg",
+                  original_language: "en",
+                  original_title: "Ad Astra",
+                  genre_ids: [18, 878],
+                  title: "Ad Astra",
+                  vote_average: 6,
+                  overview: "The near future, a time when both hope and hardships drive humanity to look to the stars and beyond. While a mysterious phenomenon menaces to destroy life on planet Earth, astronaut Roy McBride undertakes a mission across the immensity of space and its many perils to uncover the truth about a lost expedition that decades before boldly faced emptiness and silence in search of the unknown.",
+                  release_date: "2019-09-17"}
+        '401':
+          description: "401 Error"
+          content: 
+            application/json:
+              schema:
+                type: object
+                example: {message: "Authorization failure", code: 401}
+        '404':
+          description: "404 Error"
+          content: 
+            application/json:
+              schema:
+                type: object
+                example: {message: "Unable to find favourite", code: 404}
+        '500':
+          description: "500 Error"
+          content: 
+            application/json:
+              schema:
+                type: object
+                example: {message: "Internal Server Error", code: 500}
+    delete:
+      tags:
+        - favourite
+      operationId: delete-favourite
+      summary: Delete a favourite by id
+      description: Delete favourite by id
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+          description: "Bearer: Token"
+        - in: path
+          name: user_id
+          schema:
+            type: integer
+          required: true
+          description: Unique user ID of the favourite to get
+        - in: path
+          name: favourite_id
+          schema:
+            type: integer
+          required: true
+          description: Unique ID of the favourite to get
+      responses:
+        '200':
+          description: 'Favourite Deleted'
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {id: 1, status: "deleted"}
+        '401':
+          description: "401 Error"
+          content: 
+            application/json:
+              schema:
+                type: object
+                example: {message: "Authorization failure", code: 401}
+        '404':
+          description: "404 Error"
+          content: 
+            application/json:
+              schema:
+                type: object
+                example: {message: "unable to find Favourite", code: 404}
+        '500':
+          description: "500 Error"
+          content: 
+            application/json:
+              schema:
+                type: object
+                example: {message: "Internal Server Error", code: 500}
+  /api/v1/favourites/{id}:
+    get:
+      tags:
+        - favourites
+      operationId: get-favourites
+      summary: Get Favourites
+      description: Get all favourites in the DB.
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+          description: "Bearer: Token"
+        - in: path
+          name: user_id
+          schema:
+            type: integer
+          required: true
+          description: Unique user ID of the favourite to get
+      responses:
+        '200':
+          description: 'Get Users'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  example: {
+                    popularity: 501.294,
+                    vote_count: 3037,
+                    video: false,
+                    poster_path: "/xJUILftRf6TJxloOgrilOTJfeOn.jpg",
+                    id: 419704,
+                    adult: false,
+                    backdrop_path: "/5BwqwxMEjeFtdknRV792Svo0K1v.jpg",
+                    original_language: "en",
+                    original_title: "Ad Astra",
+                    genre_ids: [18, 878],
+                    title: "Ad Astra",
+                    vote_average: 6,
+                    overview: "The near future, a time when both hope and hardships drive humanity to look to the stars and beyond. While a mysterious phenomenon menaces to destroy life on planet Earth, astronaut Roy McBride undertakes a mission across the immensity of space and its many perils to uncover the truth about a lost expedition that decades before boldly faced emptiness and silence in search of the unknown.",
+                    release_date: "2019-09-17"}
+        '401':
+          description: "401 Error"
+          content: 
+            application/json:
+              schema:
+                type: object
+                example: {message: "Authorization failure", code: 401}
+        '404':
+          description: "404 Error"
+          content: 
+            application/json:
+              schema:
+                type: object
+                example: {message: "unable to find user", code: 404}
+        '500':
+          description: "500 Error"
+          content: 
+            application/json:
+              schema:
+                type: object
+                example: {message: "Internal Server Error", code: 500}
+    post:
+      tags:
+        - favourites
+      operationId: add-favourite
+      summary: Add Favourite
+      description: Add a new favourite to the DB.
+      requestBody:
+        description: Favourite data as JSON object  
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example: {
+                popularity: 501.294,
+                vote_count: 3037,
+                video: false,
+                poster_path: "/xJUILftRf6TJxloOgrilOTJfeOn.jpg",
+                id: 419704,
+                adult: false,
+                backdrop_path: "/5BwqwxMEjeFtdknRV792Svo0K1v.jpg",
+                original_language: "en",
+                original_title: "Ad Astra",
+                genre_ids: [18, 878],
+                title: "Ad Astra",
+                vote_average: 6,
+                overview: "The near future, a time when both hope and hardships drive humanity to look to the stars and beyond. While a mysterious phenomenon menaces to destroy life on planet Earth, astronaut Roy McBride undertakes a mission across the immensity of space and its many perils to uncover the truth about a lost expedition that decades before boldly faced emptiness and silence in search of the unknown.",
+                release_date: "2019-09-17"}
+      responses:
+        '201':
+          description: 'Added favourite'
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {favourite: 1}
+        '500':
+          description: "500 Error"
+          content: 
+            application/json:
+              schema:
+                type: object
+                example: {message: "Internal Error", code: 500}
