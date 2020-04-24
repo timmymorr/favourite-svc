@@ -3,11 +3,13 @@ const controller = require('./controllers/favourites');
 
 const router = express.Router();
 
-router.route('/favourite')
-  .get(controller.getSingle)
-  .post(controller.add)
+router.route('/favourite/:user_id/:id')
+  .get(controller.getFavourite)
+  .patch(controller.updateFavourite)
+  .delete(controller.deleteFavourite)
 
-router.route('/favourites')
+router.route('/favourites/:user_id')
   .get(controller.getAll)
+  .post(controller.addFavourite)
 
 module.exports = router;

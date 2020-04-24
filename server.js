@@ -9,7 +9,7 @@ const swaggerDocument = YAML.load('./swagger/swagger.yaml');
 const formatSeconds = require('./utils').formatSeconds;
 
 const app = express();
-// const router = express.Router();
+const router = express.Router();
 
 const environment = process.env.NODE_ENV; // development
 const stage = require('./config')[environment];
@@ -46,11 +46,11 @@ if (environment !== 'production') {
   app.use(logger('dev'));
 }
 
-// const routes = require('./routes');
+const routes = require('./routes');
 
-// router.use('/', routes);
+router.use('/', routes);
 
-// app.use('/api', router);
+app.use('/api', router);
 
 app.get('/status', (req, res) => {
   res.send(`**STATUS** favourite-svc -- uptime: ${formatSeconds(process.uptime())}`)
