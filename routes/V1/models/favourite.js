@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
-const environment = process.env.NODE_ENV;
-const stage = require('../../../config')[environment];
-
 // schema maps to a collection
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const favouriteSchema = new Schema({
   id: {
@@ -13,7 +10,7 @@ const favouriteSchema = new Schema({
   },
   user_id: {
     type: Number,
-    required: true
+    required: true,
   },
   popularity: Number,
   vote_count: Number,
@@ -23,35 +20,35 @@ const favouriteSchema = new Schema({
   poster_path: {
     type: String,
     trim: true,
-    unique: true
+    unique: true,
   },
   adult: Boolean,
   backdrop_path: {
     type: String,
     trim: true,
-    unique: true
+    unique: true,
   },
   original_language: String,
   original_title: {
     type: String,
     trim: true,
-    unique: true
+    unique: true,
   },
   genre_ids: [String, String],
   title: {
     type: String,
     trim: true,
-    unique: true
+    unique: true,
   },
   vote_average: Number,
   overview: {
     type: String,
-    trim: true
+    trim: true,
   },
   release_date: {
     type: String,
-    trim: true
-  }
+    trim: true,
+  },
 });
 
 module.exports = mongoose.model('Favourite', favouriteSchema);

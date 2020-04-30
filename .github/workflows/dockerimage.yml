@@ -8,19 +8,38 @@ on:
 
 jobs:
 
-  build:
-
-    runs-on: ubuntu-latest
-
+  jobs:
+    environment: 
+      runs-on: ubuntu-16.04
+      steps:
+        - name: Setup Node
+          uses: actions/setup-node@v1
+          with:
+            node-version: '12.x'
+          
+  install-and-lint: 
+    needs: environment
+    runs-on: ubuntu-16.04
     steps:
-    - uses: actions/checkout@v2
-    - name: Login to DockerHub Registry
-      run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-    - name: Build the tagged Docker image
-      run: docker build . --file Dockerfile --tag timmymorr/favourite-svc:$(git rev-parse --short "$GITHUB_SHA")
-    - name: Push the tagged Docker image
-      run: docker push timmymorr/favourite-svc:$(git rev-parse --short "$GITHUB_SHA")
-    - name: Build the latest Docker image
-      run: docker build . --file Dockerfile --tag timmymorr/favourite-svc:latest
-    - name: Push the latest Docker image
-      run: docker push timmymorr/favourite-svc:latest
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Dependencies install
+        run: npm install
+      - name: Linter
+        run: npm run lint
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: Build the tagged Docker image
+        run: docker build . --file Dockerfile --tag timmymorr/favourite-svc:$(git rev-parse --short "$GITHUB_SHA")
+      - name: Push the tagged Docker image
+        run: docker push timmymorr/favourite-svc:$(git rev-parse --short "$GITHUB_SHA")
+      - name: Build the latest Docker image
+        run: docker build . --file Dockerfile --tag timmymorr/favourite-svc:latest
+      - name: Push the latest Docker image
+        run: docker push timmymorr/favourite-svc:latest
+  
