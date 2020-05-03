@@ -21,7 +21,7 @@ module.exports = {
 
         const newFavourite = new Favourite({ user_id, ...req.body });
         newFavourite.save((error, favourite) => {
-          if (!err) {
+          if (!error) {
             result = {
               user_id: favourite.user_id,
               id: favourite.id,
