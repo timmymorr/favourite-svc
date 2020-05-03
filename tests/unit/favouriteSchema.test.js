@@ -8,7 +8,7 @@ describe('favouriteModelTests', () => {
 
   before(() => {
     testFavourite.id = 1234;
-    testFavourite.user_id = 1;
+    testFavourite.user_id = '1';
     testFavourite.popularity = 501.23;
     testFavourite.vote_count = 2023;
     testFavourite.video = false;
