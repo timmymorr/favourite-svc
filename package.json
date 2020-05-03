@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development nodemon server.js",
     "start": "NODE_ENV=production node server.js",
     "lint": "eslint --ext .js server.js config.js utils.js routes",
-    "unit": "cross-env NODE_ENV=test mocha ./tests/unit/*.js --exit",
+    "unit": "cross-env NODE_ENV=test mocha ./tests/unit/*.js --exit --reporter mochawesome",
     "integration": "cross-env NODE_ENV=test mocha ./tests/integration/*.js --exit --reporter mochawesome",
     "test": "npm run unit && npm run integration",
     "coverage": "nyc npm run test"

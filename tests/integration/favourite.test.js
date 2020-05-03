@@ -7,7 +7,7 @@ const id = 1234;
 const userId = 1;
 
 const payload = { user: 'timmymorr@gmail.com' };
-const secret = 'timmysdevelopmentjwtsecret';
+const secret = process.env.JWT_SECRET;
 const options = { expiresIn: '2d', issuer: 'https://timmymorr.io' };
 
 const token = jwt.sign(payload, secret, options);
@@ -48,27 +48,6 @@ describe('Users API test', function () {
       .catch((err) => done(err));
   });
 
-  // it('should update a user', (done) => {
-  //   const user = {
-  //     email: 'jbloggs@mail.ie',
-  //     password: 'password1',
-  //   };
-
-  //   supertest(app)
-  //     .post('/api/v1/user')
-  //     .send(user)
-  //     .expect('Content-type', /json/)
-  //     .expect(200) // This is the HTTP response
-  //     .then((res) => {
-  //       res.should.have.property('status').equal(200);
-  //       should.exist(res.body.token);
-  //       id = res.body.id;
-  //       token = `Bearer: ${res.body.token}`;
-  //       done();
-  //     })
-  //     .catch((err) => done(err));
-  // });
-
   it('should not get a favourite by ID without a token', (done) => {
     supertest(app)
       .get(`/api/v1/favourite/${userId}/${id}`)
@@ -80,43 +59,4 @@ describe('Users API test', function () {
       })
       .catch((err) => done(err));
   });
-
-  // it('should get a user by ID', (done) => {
-  //   supertest(app)
-  //     .get(`/api/v1/favourite/${userId}/${id}`)
-  //     .set('Authorization', `Bearer: ${token}`)
-  //     .expect('Content-type', /json/)
-  //     .expect(200) // This is the HTTP response
-  //     .then((res) => {
-  //       res.should.have.property('status').equal(200);
-  //       done();
-  //     })
-  //     .catch((err) => done(err));
-  // });
-
-  // it('should get al users', (done) => {
-  //   supertest(app)
-  //     .get('/api/v1/users')
-  //     .set('Authorization', token)
-  //     .expect('Content-type', /json/)
-  //     .expect(200) // This is the HTTP response
-  //     .then((res) => {
-  //       res.should.have.property('status').equal(200);
-  //       done();
-  //     })
-  //     .catch((err) => done(err));
-  // });
-
-  // it('should delete a user by ID', (done) => {
-  //   supertest(app)
-  //     .delete(`/api/v1/user/${id}`)
-  //     .set('Authorization', token)
-  //     .expect('Content-type', /json/)
-  //     .expect(200) // This is the HTTP response
-  //     .then((res) => {
-  //       res.should.have.property('status').equal(200);
-  //       done();
-  //     })
-  //     .catch((err) => done(err));
-  // });
 });
