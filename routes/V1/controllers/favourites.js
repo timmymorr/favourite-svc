@@ -141,7 +141,7 @@ module.exports = {
       let result;
       let status = 200;
       if (!error) {
-        Favourite.findByOneAndDelete({ user_id, id }, (err, favourite) => {
+        Favourite.findOneAndDelete({ user_id, id }, (err, favourite) => {
           if (!err && favourite) {
             result = {
               user_id: favourite.user_id,
